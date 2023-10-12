@@ -1,5 +1,7 @@
 package lexicon.se.model;
 
+import lexicon.se.model.exception.InsufficientBalanceException;
+
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +49,7 @@ public class Wallet {
    if (amount.compareTo(BigDecimal.ZERO) <= 0) throw new IllegalArgumentException("Deposit amount must be grater that zero.");
 
         BigDecimal currentBalance = getBalance(cryptoCurrency);
-
+      if (currentBalance.compareTo(amount) < 0) throw new InsufficientBalanceException("Insufficient Balance for withdrawal .");
         BigDecimal newBalance = currentBalance.add(amount);
         cryptoCurrencies.put(cryptoCurrency,newBalance);
 
